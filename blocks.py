@@ -52,7 +52,7 @@ def tick():
     if PADDLE.rect.colliderect(BALL.rect):
         BALL.dir = 90 + (PADDLE.rect.centerx - BALL.rect.centerx) / PADDLE.rect.width * 80
     #壁と衝突？
-    if PADDLE.rect.centerx < 50 or BALL.rect.centerx > 600:
+    if PADDLE.rect.centerx < 0 or BALL.rect.centerx > 600:
         BALL.dir = 180 - BALL.dir
     if BALL.rect.centery < 0:
         BALL.dir = -BALL.dir
