@@ -2,7 +2,9 @@ import sys
 from math import sqrt
 from random import randint
 import pygame
-from pygame.locals import QUIT, KEYDOWN, K_LEFT, K_RIGHT, K_DOWN, K_SPACE, K_UP
+import demo
+from time import sleep
+from pygame.locals import QUIT, KEYDOWN, K_LEFT, K_RIGHT, K_DOWN, K_SPACE, K_UP,  K_LCTRL, K_ESCAPE
 
 BLOCK_DATA = (
     (
@@ -45,7 +47,6 @@ BLOCK_DATA = (
 
 
 class Block:
-    """ブロックオブジェクト"""
 
     def __init__(self, count):
         self.turn = randint(0, 3)
@@ -121,6 +122,8 @@ def is_overlapped(xpos, ypos, turn):
     return False
 
 
+
+
 pygame.init()
 pygame.key.set_repeat(30, 30)
 SURFACE = pygame.display.set_mode([600, 600])
@@ -145,6 +148,9 @@ def main():
     message_over = largefont.render("GAME OVER!!", True, (0, 255, 255))
     message_rect = message_over.get_rect()
     message_rect.center = (300, 300)
+    message_over2 = smallfont.render("Return to menu in 5 sec", True, (0, 255, 255))
+    message_rect2 = message_over2.get_rect()
+    message_rect2.center = (300, 350)
     go_next_block(INTERVAL)
     for ypos in range(HEIGHT):
         for xpos in range(WIDTH):
@@ -177,6 +183,20 @@ def main():
                 next_x -= 1
             elif key == K_DOWN:
                 next_y += 1
+            elif key == K_UP:
+                for x in range(20):
+                    if not is_overlapped(next_x, next_y, next_t):
+                        BLOCK.xpos = next_x
+                        BLOCK.ypos = next_y
+                        BLOCK.turn = next_t
+                        BLOCK.data = BLOCK.type[BLOCK.turn]
+                        next_y += 1
+                pygame.time.delay(100)
+
+
+            elif key == K_ESCAPE:
+                pygame.quit()
+                sys.exit()
 
             if not is_overlapped(next_x, next_y, next_t):
                 BLOCK.xpos = next_x
@@ -201,8 +221,17 @@ def main():
 
         if game_over:
             SURFACE.blit(message_over, message_rect)
+            pygame.display.update()
+            FPSCLOCK.tick(15)
+            sleep(1)
+            SURFACE.blit(message_over2, message_rect2)
+            pygame.display.update()
+            FPSCLOCK.tick(15)
+            sleep(5)
+            demo.setUpMenu()
         pygame.display.update()
         FPSCLOCK.tick(15)
+
 
 
 if __name__ == '__main__':
