@@ -2,6 +2,7 @@
 
 import pygame, pybutton, pymenu, sys, tetris
 import tetris
+import invader 
 from constants import *
 
 # this is a demo of how to use the pymenu and pybutton classes
@@ -21,7 +22,11 @@ def callback(index):
 
   # which means you can check
   # for the index like this:
+  # if index == 1:
+  #  tetris.main()
   if index == 1:
+    invader.main()
+  if index == 2:
     tetris.main()
   if index == 4:
     pygame.quit()
@@ -42,8 +47,8 @@ def setUpMenu():
   
   # create the buttons
   backButton = pybutton.PyButton(WINDOWWIDTH/2, 100, "Back to Game")
-  newButton = pybutton.PyButton(WINDOWWIDTH/2, 130, "New Game \"TETRIS\"")
-  challengeButton = pybutton.PyButton(WINDOWWIDTH/2, 160, "Challenge")
+  newButton = pybutton.PyButton(WINDOWWIDTH/2, 130, "New Game \"INVADER\"")
+  challengeButton = pybutton.PyButton(WINDOWWIDTH/2, 160, "New Game \"TETRIS\"")
   aboutButton = pybutton.PyButton(WINDOWWIDTH/2, 190, "About")
   quitButton = pybutton.PyButton(WINDOWWIDTH/2, 220, "Quit")
 
