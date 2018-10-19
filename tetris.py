@@ -4,6 +4,7 @@ from random import randint
 import pygame
 import demo
 from time import sleep
+from api import rest
 from pygame.locals import QUIT, KEYDOWN, K_LEFT, K_RIGHT, K_DOWN, K_SPACE, K_UP,  K_LCTRL, K_ESCAPE
 
 BLOCK_DATA = (
@@ -223,7 +224,7 @@ def main():
             SURFACE.blit(message_over, message_rect)
             pygame.display.update()
             FPSCLOCK.tick(15)
-            sleep(1)
+            rest('tetris', score_str)
             SURFACE.blit(message_over2, message_rect2)
             pygame.display.update()
             FPSCLOCK.tick(15)
