@@ -1,6 +1,6 @@
 # demo.py
 
-import pygame, pybutton, pymenu, sys, tetris
+import pygame, pybutton, pymenu, sys
 import tetris
 import invader
 import blocks
@@ -27,12 +27,14 @@ def callback(index):
     # if index == 1:
     #  tetris.main()
     if index == 0:
+        pygame.display.set_mode((600, 800))
         blocks.main()
     if index == 1:
+        pygame.display.set_mode((600, 600))
         invader.main()
     if index == 2:
         tetris.main()
-    if index == 4:
+    if index == 3:
         pygame.quit()
         sys.exit()
 
@@ -51,10 +53,9 @@ def setUpMenu():
     menu = pymenu.PyMenu(BLACK, WINDOWWIDTH / 2, 45, "Games")
 
     # create the buttons
-    backButton = pybutton.PyButton(WINDOWWIDTH / 2, 100, "New Game \"INVADER\")
+    backButton = pybutton.PyButton(WINDOWWIDTH / 2, 100, "New Game \"BLOCKS\"")
     newButton = pybutton.PyButton(WINDOWWIDTH / 2, 130, "New Game \"INVADER\"")
     challengeButton = pybutton.PyButton(WINDOWWIDTH / 2, 160, "New Game \"TETRIS\"")
-    aboutButton = pybutton.PyButton(WINDOWWIDTH / 2, 190, "About")
     quitButton = pybutton.PyButton(WINDOWWIDTH / 2, 220, "Quit")
 
     # add the button to the menu as the first argument
@@ -69,7 +70,6 @@ def setUpMenu():
     menu.addButton(backButton, callback)
     menu.addButton(newButton, callback)
     menu.addButton(challengeButton, callback)
-    menu.addButton(aboutButton, callback)
     menu.addButton(quitButton, callback)
 
     # draw the menu

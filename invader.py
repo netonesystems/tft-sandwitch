@@ -4,6 +4,8 @@ from random import randint
 import pygame
 from pygame.locals import Rect, QUIT, KEYDOWN, \
     K_LEFT, K_RIGHT, K_SPACE
+from time import sleep
+import demo
 
 pygame.init()
 pygame.key.set_repeat(5, 5)
@@ -60,12 +62,16 @@ def main():
     """ メインルーチン """
     sysfont = pygame.font.SysFont(None, 72)
     scorefont = pygame.font.SysFont(None, 36)
+    smallfont = pygame.font.SysFont(None, 36)
     message_clear = sysfont.render("!!CLEARED!!",
                                    True, (0, 255, 225))
     message_over = sysfont.render("GAME OVER!!",
                                   True, (0, 255, 225))
     message_rect = message_clear.get_rect()
     message_rect.center = (300, 300)
+    message_over2 = smallfont.render("Return to menu in 5 sec", True, (0, 255, 255))
+    message_rect2 = message_over2.get_rect()
+    message_rect2.center = (300, 350)
     game_over = False
     moving_left = True
     moving_down = False
@@ -180,8 +186,24 @@ def main():
         if game_over:
             if len(aliens) == 0:
                 SURFACE.blit(message_clear, message_rect.topleft)
+                pygame.display.update()
+                FPSCLOCK.tick(15)
+                sleep(1)
+                SURFACE.blit(message_over2, message_rect2)
+                pygame.display.update()
+                FPSCLOCK.tick(15)
+                sleep(5)
+                demo.setUpMenu()
             else:
                 SURFACE.blit(message_over, message_rect.topleft)
+                pygame.display.update()
+                FPSCLOCK.tick(15)
+                sleep(1)
+                SURFACE.blit(message_over2, message_rect2)
+                pygame.display.update()
+                FPSCLOCK.tick(15)
+                sleep(5)
+                demo.setUpMenu()
 
         pygame.display.update()
         FPSCLOCK.tick(20)

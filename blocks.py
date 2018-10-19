@@ -4,6 +4,8 @@ import math
 import random
 import pygame
 from pygame.locals import QUIT, KEYDOWN, K_LEFT, K_RIGHT, Rect
+import demo
+from time import sleep
 
 
 class Block:
@@ -65,6 +67,11 @@ FPSCLOCK = pygame.time.Clock()
 BLOCKS = []
 PADDLE = Block((242, 242, 0), Rect(300, 700, 100, 30))
 BALL = Block((242, 242, 0), Rect(300, 400, 20, 20), 10)
+smallfont = pygame.font.SysFont(None, 36)
+message_over2 = smallfont.render("Return to menu in 5 sec", True, (0, 255, 255))
+message_rect2 = message_over2.get_rect()
+message_rect2.center = (310, 480)
+
 
 def main():
     """ メインルーチン """
@@ -89,8 +96,24 @@ def main():
             
         if len(BLOCKS) == 0:
             SURFACE.blit(mess_clear, (200, 400))
+            pygame.display.update()
+            FPSCLOCK.tick(15)
+            sleep(1)
+            SURFACE.blit(message_over2, message_rect2)
+            pygame.display.update()
+            FPSCLOCK.tick(15)
+            sleep(5)
+            demo.setUpMenu()
         if BALL.rect.centery > 800 and len(BLOCKS) > 0:
             SURFACE.blit(mess_over, (150, 400))
+            pygame.display.update()
+            FPSCLOCK.tick(15)
+            sleep(1)
+            SURFACE.blit(message_over2, message_rect2)
+            pygame.display.update()
+            FPSCLOCK.tick(15)
+            sleep(5)
+            demo.setUpMenu()
         
         pygame.display.update()
         FPSCLOCK.tick(fps)
